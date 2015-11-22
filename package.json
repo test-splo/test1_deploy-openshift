@@ -1,0 +1,26 @@
+{
+  "name": "pws_back",
+  "version": "1.0.0",
+  "description": "NPO Pangaea Webcam System with WebRTC back-end",
+  "repository": {
+    "type": "git",
+    "url": "https://gitub.com/spinylobster/pws_back.git"
+  },
+
+  "engines": {
+    "node": ">= 5.1.0",
+    "npm": ">= 3.3.12"
+  },
+
+  "dependencies": {
+    "config-multipaas": "^0.1.0",
+    "restify": "^2.8.3"
+  },
+  "devDependencies": {},
+  "bundleDependencies": [],
+
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  }
+}
