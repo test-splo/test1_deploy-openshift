@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+    - "node"
+deploy:
+  provider: openshift
+  user: spinylobster0713@gmail.com
+  password:
+    secure: JLNAyJ4FP8wq1gr/PlT6UauVnIkt1EzL9l4NY4MkLtMpzpLlUsf1coN5nVDi/XCMM2QZieDTN0ZHnRThnRG36cJ5gtp6f+Xbkig2RaGZRcYHlwnElC6n9sVLcpZlrIqWm9rjjQ0+JyE72fXyufomDwZAQce1CrzWUc4Gy7l2kaTTrZ8LfstbM7jxH+V+JjHQYrIBK92eIORto+yNWGf8eoKi09TvfJVcJCWdrT9zxqq542DMTAjSX9Iiv9nrdPxpNCw6F4BFTO/AxE1Uf7KuIApRConF/4K4gJFW38Lli+Ubl25yHBjy2kXAgky7YEOCXo2dfGGCpgkzq6cJUThS/SpffTTRbFb7bq3OkpqO7b6am4zg3XanerYrzP/5qaL67ILRnUDxghdy9Urr9E9Mvw5TXMUVYjSUWYcKrcuIkrhcW7AP80eLsgs5QgIZUt7C7C8PLDvXiVR8oXDiiiypLZ5YqmBAxPegw8H0RVHrZUqnJNIBnU2J7NS1tQ574h+usnpnnGCi56ptqqLsq4m3GN87kZWNbLxInaHJoJv3s/6VvPNlxP4M9T/k9wgSb3kIpoTqdRtBn808pvKK1fP0XjZHD9VntyoGlR0zKX9IBNx/UVGCdjAiSVW0AB2AKJdtSD19o+VsTcmXX/auu5W02LOJWI2/zrHadanWsesZl+U=
+  app: nodeapp
+  domain: spinylobster
+  on:
+    repo: test-splo/test1_deploy-openshift
