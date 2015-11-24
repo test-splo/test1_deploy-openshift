@@ -1,30 +1,15 @@
-var cc          = require('config-multipaas'),
-    restify     = require('restify'),
-    fs          = require('fs')
+const config = require('config-multipaas')();
+const PORT = config.get('PORT');
+const IP = config.get('IP');
 
-var config      = cc(),
-    app         = restify.createServer()
+const io = require('socket.io').listen(PORT);
 
-app.use(restify.queryParser())
-app.use(restify.CORS())
-app.use(restify.fullResponse())
-
-// Routes
-app.get('/status', function (req, res, next)
-{
-  res.send("{status: 'ok'}");
+io.on('connection', socket => {
+  // 送信された文字列をブロードキャストするだけ
+  const echoEventName = 'echo';
+  socket.on(echoEventName, data => {
+    io.emit(echoEventName, data);
+  });
 });
 
-app.get('/', function (req, res, next)
-{
-  var data = fs.readFileSync(__dirname + '/index.html');
-  res.status(200);
-  res.header('Content-Type', 'text/html');
-  res.end(data.toString().replace(/host:port/g, req.header('Host')));
-});
-
-app.get(/\/(css|js|img)\/?.*/, restify.serveStatic({directory: './static/'}));
-
-app.listen(config.get('PORT'), config.get('IP'), function () {
-  console.log( "Listening on " + config.get('IP') + ", port " + config.get('PORT') )
-});
+console.log(`Listening on ${IP}, port ${PORT}`);
