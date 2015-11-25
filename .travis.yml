@@ -14,11 +14,8 @@ before_install:
   - eval "$(ssh-agent -s)" # start the ssh agent
   - ssh-add .ci/deploy_key
   - git remote add main-code git@github.com:test-splo/test1.git -f
-  - git config --global user.email "spinylobster@outlook.com"
-  - git config --global user.name "Travis CI"
-  - ls -al
-  - git status
-  - git config --global merge.ours.driver true && git subtree pull -P . main-code HEAD || git checkout --ours *
+  - git config --global user.email "spinylobster@outlook.com" && git config --global user.name "Travis CI"
+  - git config --global merge.ours.driver true && git subtree pull -P . main-code HEAD --no-edit
   - ssh-add -d .ci/deploy_key && rm -f .ci/deploy_key
 
 deploy:
