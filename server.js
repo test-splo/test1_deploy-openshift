@@ -1,12 +1,10 @@
 const config = require('config-multipaas')();
-const PORT = config.get('PORT') || 8000;
+const PORT = config.get('PORT');
 const IP = config.get('IP');
 
 const io = require('socket.io').listen(PORT);
 
-io.set({
-  origins: `*`
-});
+io.origins('*:*');
 
 io.on('connection', socket => {
   // 送信された文字列をブロードキャストするだけ
