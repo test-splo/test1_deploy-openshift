@@ -16,7 +16,7 @@ before_install:
   - git remote add main-code git@github.com:test-splo/test1.git -f
   - git config --global user.email "spinylobster@outlook.com"
   - git config --global user.name "Travis CI"
-  - ls --al
+  - ls -al
   - git status
   - git subtree pull -P . main-code HEAD || git checkout --ours *
   - ssh-add -d .ci/deploy_key && rm -f .ci/deploy_key
