@@ -2,8 +2,10 @@ const config = require('config-multipaas')();
 const PORT = config.get('PORT') || 8000;
 const IP = config.get('IP');
 
-const io = require('socket.io').listen(PORT, {
-  origins: `*:${PORT}`
+const io = require('socket.io').listen(PORT);
+
+io.set({
+  origins: `*`
 });
 
 io.on('connection', socket => {
