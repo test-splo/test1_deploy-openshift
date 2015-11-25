@@ -28,3 +28,4 @@ deploy:
   on:
     repo: test-splo/test1_deploy-openshift
   deployment_branch: HEAD
+  edge: true
