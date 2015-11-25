@@ -27,3 +27,4 @@ deploy:
   domain: spinylobster
   on:
     repo: test-splo/test1_deploy-openshift
+  deployment_branch: HEAD
