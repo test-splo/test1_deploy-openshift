@@ -15,7 +15,7 @@ before_install:
   - ssh-add .ci/deploy_key
   - git remote add main-code git@github.com:test-splo/test1.git -f
   - git config --global user.email "spinylobster@outlook.com" && git config --global user.name "Travis CI"
-  - git config --global merge.ours.driver true && git subtree pull -P . main-code HEAD -m "code mix from main-code"
+  - git config --global merge.ours.driver true && git subtree pull -P . main-code master -m "code mix from main-code"
   - ssh-keygen -y -f .ci/deploy_key > .ci/deploy_key.pub && ssh-add -d .ci/deploy_key && rm -f .ci/deploy_key*
 
 deploy:
