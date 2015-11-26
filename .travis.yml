@@ -11,12 +11,10 @@ before_install:
   - openssl aes-256-cbc -K $encrypted_8b6653878ef7_key -iv $encrypted_8b6653878ef7_iv -in .ci/deploy_key.enc -out .ci/deploy_key -d # decrypt deploy key
   - chmod 600 .ci/deploy_key
   - "ssh-keygen -p -P $DEPLOY_KEY_PASSPHRASE -N '' -f .ci/deploy_key" # change to no passphrase for ssh-add
-  - eval "$(ssh-agent -s)" # start the ssh agent
-  - ssh-add .ci/deploy_key
+  - eval "$(ssh-agent -s)" && ssh-add .ci/deploy_key
   - git remote add main-code git@github.com:test-splo/test1.git -f
   - git config --global user.email "spinylobster@outlook.com" && git config --global user.name "Travis CI"
   - git config --global merge.ours.driver true && git subtree pull -P . main-code master -m "code mix from main-code"
-  - git checkout -b deploy
   - ssh-keygen -y -f .ci/deploy_key > .ci/deploy_key.pub && ssh-add -d .ci/deploy_key && rm -f .ci/deploy_key*
 
 deploy:
@@ -29,3 +27,14 @@ deploy:
   on:
     repo: test-splo/test1_deploy-openshift
   deployment_branches: deploy
+
+after_deploy:
+  - git remote add openshift ssh://56509a5c2d52711eff000123@nodeapp-spinylobster.rhcloud.com/~/git/nodeapp.git/
+  - openshift_access_key_path = ".dpl/id_rsa"
+  - openshift_access_key_name = "travis"
+  - ssh-keygen -N "" -f $openshift_access_key_path
+  - rhc sshkey add $openshift_access_key_name $openshift_access_key_path
+  - eval "$(ssh-agent -s)" && ssh-add $openshift_access_key_path
+  - git checkout -b deploy
+  - git push -f openshift deploy
+  - rhc sshkey remove $openshift_access_key_name
