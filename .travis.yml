@@ -28,13 +28,15 @@ deploy:
     repo: test-splo/test1_deploy-openshift
   deployment_branches: deploy
 
+env:
+  global:
+    - openshift_access_key_path = ".dpl/id_rsa"
+    - openshift_access_key_name = "travis"
 after_deploy:
-  - git remote add openshift ssh://56509a5c2d52711eff000123@nodeapp-spinylobster.rhcloud.com/~/git/nodeapp.git/ -qf
-  - openshift_access_key_path = ".dpl/id_rsa"
-  - openshift_access_key_name = "travis"
-  - ssh-keygen -N "" -f $openshift_access_key_path
-  - rhc sshkey add $openshift_access_key_name $openshift_access_key_path
-  - eval "$(ssh-agent -s)" && ssh-add $openshift_access_key_path
+  - "ssh-keygen -N '' -f $openshift_access_key_path"
+  - "rhc sshkey add $openshift_access_key_name $openshift_access_key_path"
+  - eval "$(ssh-agent -s)" && ssh-add "$openshift_access_key_path"
   - git checkout -b deploy
-  - git push -f openshift deploy
-  - rhc sshkey remove $openshift_access_key_name
+  - git remote add openshift ssh://56509a5c2d52711eff000123@nodeapp-spinylobster.rhcloud.com/~/git/nodeapp.git/ -qf
+  - git push -qf openshift deploy
+  - "rhc sshkey remove $openshift_access_key_name"
