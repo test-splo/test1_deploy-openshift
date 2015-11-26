@@ -33,7 +33,7 @@ env:
   openshift_access_key_name=travis
 after_deploy:
   - |
-      rhc setup --server openshift.redhat.com -l 'spinylobster0713@gmail.com' -p "$OPENSHIFT_PASSWORD" --no-create-token
+      rhc setup --server openshift.redhat.com -l 'spinylobster0713@gmail.com' -p "$OPENSHIFT_PASSWORD" --no-create-token \
       no
   - "ssh-keygen -N '' -f $openshift_access_key_path"
   - "rhc sshkey add $openshift_access_key_name $openshift_access_key_path --confirm"
