@@ -30,8 +30,8 @@ deploy:
 
 env:
   global:
-    - openshift_access_key_path = ".dpl/id_rsa"
-    - openshift_access_key_name = "travis"
+    - openshift_access_key_path=.dpl/id_rsa
+    - openshift_access_key_name=travis
 after_deploy:
   - "ssh-keygen -N '' -f $openshift_access_key_path"
   - "rhc sshkey add $openshift_access_key_name $openshift_access_key_path"
