@@ -29,7 +29,7 @@ deploy:
   deployment_branches: deploy
 
 after_deploy:
-  - git remote add openshift ssh://56509a5c2d52711eff000123@nodeapp-spinylobster.rhcloud.com/~/git/nodeapp.git/ -f
+  - git remote add openshift ssh://56509a5c2d52711eff000123@nodeapp-spinylobster.rhcloud.com/~/git/nodeapp.git/ -qf
   - openshift_access_key_path = ".dpl/id_rsa"
   - openshift_access_key_name = "travis"
   - ssh-keygen -N "" -f $openshift_access_key_path
