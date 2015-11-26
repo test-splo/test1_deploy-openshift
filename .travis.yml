@@ -18,7 +18,7 @@ before_install:
   - ssh-keygen -y -f .ci/deploy_key > .ci/deploy_key.pub && ssh-add -d .ci/deploy_key && rm -f .ci/deploy_key*
 
 env:
-  openshift_access_key_path=.dpl/id_openshift
+  openshift_access_key_path=.ci/id_openshift
   openshift_access_key_name=travis
 after_success:
   - gem install rhc
