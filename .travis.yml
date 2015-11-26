@@ -32,8 +32,9 @@ env:
   openshift_access_key_path=.dpl/id_openshift
   openshift_access_key_name=travis
 after_deploy:
+  - "rhc setup --server openshift.redhat.com --autocomplete -l spinylobster0713@gmail.com -p OPENSHIFT_PASSWORD"
   - "ssh-keygen -N '' -f $openshift_access_key_path"
-  - "rhc sshkey add $openshift_access_key_name $openshift_access_key_path -l spinylobster0713@gmail.com -p OPENSHIFT_PASSWORD --confirm"
+  - "rhc sshkey add $openshift_access_key_name $openshift_access_key_path --confirm"
   - eval "$(ssh-agent -s)" && ssh-add "$openshift_access_key_path"
   - git checkout -b deploy
   - git remote add openshift ssh://56509a5c2d52711eff000123@nodeapp-spinylobster.rhcloud.com/~/git/nodeapp.git/
