@@ -40,5 +40,5 @@ after_deploy:
   - git checkout -b deploy
   - git remote add openshift ssh://56509a5c2d52711eff000123@nodeapp-spinylobster.rhcloud.com/~/git/nodeapp.git/
   - ssh-keyscan nodeapp-spinylobster.rhcloud.com >> ~/.ssh/known_hosts
-  - git push --quiet openshift deploy --force
-  - "rhc sshkey remove $openshift_access_key_name"
+  - git push openshift deploy --force
+  - "yes $OPENSHIFT_PASSWORD | rhc sshkey remove $openshift_access_key_name"
